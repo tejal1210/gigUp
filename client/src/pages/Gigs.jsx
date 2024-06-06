@@ -16,7 +16,7 @@ function Gigs() {
   return (
     <div className='Gigs w-full flex justify-center py-10 px-20 font-[Roboto]'>
       <div className='container w-[1400px] px-0 py-[30px] flex flex-col gap-[15px]'>
-      <span className="breadcrumbs font-light uppercase text-[13px] text-[#555]">GigUp > Graphics & Design ></span>
+      <span className="breadcrumbs font-light uppercase text-[13px] text-[#555]">GigUp &gt; Graphics & Design 	&gt;</span>
         <h1 className='font-semibold text-3xl'>AI Artists</h1>
         <p className="text-[#999] font-light">
           Explore the boundaries of art and technology with Liverr's AI artists

@@ -9,7 +9,7 @@ function Gig() {
     <div className="gig flex justify-center px-20 py-5 font-[Roboto]">
       <div className="container w-full px-0 py-[30px] flex gap-[50px]">
         <div className="left flex-[2] flex flex-col gap-[20px]">
-          <span className="breadcrumbs font-light uppercase text-[13px] text-[#555]">Liverr > Graphics & Design ></span>
+          <span className="breadcrumbs font-light uppercase text-[13px] text-[#555]">GigUp &gt; Graphics & Design 	&gt;</span>
           <h1 className="title font-semibold text-3xl">I will create AI generated art for you</h1>
           <div className="user flex items-center gap-[10px]">
             <img

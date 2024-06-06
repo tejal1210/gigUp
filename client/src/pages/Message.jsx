@@ -7,7 +7,7 @@ const Message = () => {
     <div className="message flex justify-center font-[Roboto]">
       <div className="container w-11/12 m-12">
         <span className="breadcrumbs font-light text-md text-[#555]">
-          <Link to="/messages">Messages</Link> > John Doe >
+          <Link to="/messages">Messages</Link> 	&gt; John Doe 	&gt;
         </span>
         <div className="messages mx-0 my-[30px] p-[50px] flex flex-col gap-[20px] h-[500px] overflow-scroll">
           <div className="item flex gap-[20px] max-w-[600px] text-sm">
