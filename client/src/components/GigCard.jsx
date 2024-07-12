@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const GigCard = ({ item }) => {
   return (
     <Link to="/gig/123" className="link">
-      <div className="w-[324px] h-[475px] border border-gray-300 mb-10 font-[Roboto]">
+      <div className="w-[60vh] h-[86.2vh] border border-gray-300 mb-10 font-[Roboto]">
         <img src={item.img} alt="" className="img w-full h-1/2 object-cover" />
         <div className="info px-[20px] py-[10px] flex flex-col gap-5 font-[Roboto]">
           <div className="user flex items-center gap-2.5 ">

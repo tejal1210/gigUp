@@ -2,7 +2,7 @@ import React from 'react'
 
 function Featured() {
   return (
-    <div className="featured h-[600px] flex justify-center bg-[#013914] text-white">
+    <div className="featured h-full flex justify-center bg-[#013914] text-white">
       <div className="container w-full flex items-center px-10 gap-8">
         <div className="left flex flex-col gap-10 w-2/3 justify-center px-10">
             <h1 className="text-5xl justify-center">
