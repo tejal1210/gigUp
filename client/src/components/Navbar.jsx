@@ -23,11 +23,12 @@ function Navbar() {
         };
     }, []);
     //const currentUser=null;
-    const currentUser={
-        id: 1,
-        username: "Tejal",
-        isSeller: true
-    }
+    // const currentUser={
+    //     id: 1,
+    //     username: "Tejal",
+    //     isSeller: false
+    // }
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
   return (
   <div className={`navbar flex z-20 flex-col items-center sticky top-[0] [transition:0.5s_all_ease] ${(active || pathname !== "/")?"bg-white text-black" : "bg-[#013914] text-white"}`}>
         <div className="container w-full flex items-center justify-between py-3 px-12">
@@ -46,7 +47,7 @@ function Navbar() {
                     <div className="user flex items-center gap-2 cursor-pointer relative"
                          onClick={() => setOpen(!open)}>
                         <img className="w-8 h-8 rounded-full object-cover"
-                            src="https://images.pexels.com/photos/1115697/pexels-photo-1115697.jpeg?auto=compress&cs=tinysrgb&w=1600"
+                            src={currentUser.img || "/img/noavatar.jpg"}
                             alt=""
                         />
                         <span>{currentUser?.username}</span >
