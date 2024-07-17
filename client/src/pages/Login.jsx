@@ -13,8 +13,8 @@ function Login() {
     e.preventDefault();
     try {
       const res = await newRequest.post("/auth/login", { username, password });
-      console.log(res.data)
-      localStorage.setItem("currentUser", JSON.stringify(res.user));
+      console.log(res.data.data)
+      localStorage.setItem("currentUser", JSON.stringify(res.data.data));
       navigate("/")
     } catch (err) {
       setError(err.response.data);

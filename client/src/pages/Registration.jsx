@@ -94,7 +94,7 @@ function Register() {
           <div className="right flex-1 flex flex-col justify-between">
             <label className="text-gray-500 text-lg">I want to become a seller</label>
             <div className="toggle flex items-center">
-              <label className="text-gray-500 text-lg" htmlFor="isSeller">Activate the seller account</label>
+              <label className="text-gray-500 text-lg mx-3" htmlFor="isSeller">Activate the seller account</label>
               <label className="switch relative inline-block w-[50px] h-[24px]">
                 <input type="checkbox" onChange={handleSeller} className="opacity-0 w-0 h-0" />
                 <span className="slider absolute cursor-pointer top-0 left-0 right-0 bottom-0 bg-gray-300 transition rounded-full before:absolute before:content-[''] before:h-4 before:w-4 before:left-1 before:bottom-1 before:bg-white before:transition before:rounded-full input:checked:before:transform input:checked:before:translate-x-6 input:checked:bg-blue-500"></span>

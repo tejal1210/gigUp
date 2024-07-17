@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
+import newRequest from '../../utils/newRequest';
 
 function Navbar() {
     const [active, setActive]=useState(false);
@@ -29,6 +30,19 @@ function Navbar() {
     //     isSeller: false
     // }
     const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    console.log("current user")
+    console.log(currentUser);
+    const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await newRequest.post("/auth/logout");
+      localStorage.setItem("currentUser", null);
+      navigate("/");
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
   <div className={`navbar flex z-20 flex-col items-center sticky top-[0] [transition:0.5s_all_ease] ${(active || pathname !== "/")?"bg-white text-black" : "bg-[#013914] text-white"}`}>
         <div className="container w-full flex items-center justify-between py-3 px-12">
@@ -42,18 +56,18 @@ function Navbar() {
                 <Link to="/">GigUp Pro</Link>
                 <Link to="/">Privacy Policy</Link>
                 <Link to="/">About Us</Link >
-                {!currentUser?.isSeller && <Link to='./register'>Become a Seller</Link >}
+                {!currentUser?.user.isSeller && <Link to='./register'>Become a Seller</Link >}
                 {currentUser ? (
                     <div className="user flex items-center gap-2 cursor-pointer relative"
                          onClick={() => setOpen(!open)}>
                         <img className="w-8 h-8 rounded-full object-cover"
-                            src={currentUser.img || "/img/noavatar.jpg"}
+                            src={currentUser.user.img || "/img/noavatar.jpg"}
                             alt=""
                         />
-                        <span>{currentUser?.username}</span >
+                        <span>{currentUser?.user.username}</span >
                         {open && (
                             <div className="options absolute top-12 right-0 p-5 bg-white rounded-md z-[999] border border-gray-200 flex flex-col gap-2 text-gray-500 text-md">
-                                {currentUser.isSeller && (
+                                {currentUser.user.isSeller && (
                                     <>
                                         <Link to='/myGigs'>Gigs</Link >
                                         <Link to='/add'>Add New Gig</Link >
@@ -61,16 +75,18 @@ function Navbar() {
                                 )}
                                 <Link to='/orders'>Orders</Link >
                                 <Link to='/messages'>Messages</Link >
-                                <Link >Logout</Link >
+                                <Link className="link" onClick={handleLogout}>Logout</Link >
                             </div>
                         )}
                     </div>
                 ):(
                     <>
                         <Link to='/login'>Sign In</Link >
-                        <button className={`join-button py-2 px-4 rounded bg-transparent border ${
-                                (active || pathname !== "/") ? "border-black text-black hover:border-[#1dbf73]" : "border-white text-white"
-                                } hover:bg-[#1dbf73] hover:text-white `}>Join</button>
+                        <Link className="link" to="/register">
+                            <button className={`join-button py-2 px-4 rounded bg-transparent border ${
+                                    (active || pathname !== "/") ? "border-black text-black hover:border-[#1dbf73]" : "border-white text-white"
+                                    } hover:bg-[#1dbf73] hover:text-white `}>Join</button>
+                        </Link>
                     </>
                 )}
             </div>
