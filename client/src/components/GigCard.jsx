@@ -1,20 +1,42 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import newRequest from "../../utils/newRequest";
 
 const GigCard = ({ item }) => {
+  const { isLoading, error, data } = useQuery({
+    queryKey: [item.userId],
+    queryFn: () =>
+      newRequest.get(`/users/${item.userId}`).then((res) => {
+        //console.log("user")
+        //console.log(res.data.data)
+        return res.data.data;
+      }),
+  });
+console.log(item._id);
   return (
-    <Link to="/gig/123" className="link">
+    <Link to={`/gigs/single/${item._id}`} className="link">
       <div className="w-[60vh] h-[86.2vh] border border-gray-300 mb-10 font-[Roboto]">
-        <img src={item.img} alt="" className="img w-full h-1/2 object-cover" />
+        <img src={item.coverImage} alt="" className="img w-full h-1/2 object-cover" />
         <div className="info px-[20px] py-[10px] flex flex-col gap-5 font-[Roboto]">
+        {isLoading ? (
+            "loading"
+          ) : error ? (
+            "Something went wrong!"
+            
+          ) : (
           <div className="user flex items-center gap-2.5 ">
-            <img src={item.pp} alt="" className="w-[26px] h-[26px] rounded-[50%] object-cover" />
-            <span>{item.username}</span>
+            <img src={data.img || "/img/noavatar.jpg"} alt="" className="w-[26px] h-[26px] rounded-[50%] object-cover" />
+            <span>{data.username}</span>
           </div>
-          <p className="text-[#111] font-light">{item.desc}</p>
+          )}
+          <p className="text-[#111] font-light overflow-hidden overflow-ellipsis whitespace-nowrap
+">{item.title}</p>
           <div className="star flex items-center gap-[5px]">
             <img src="./img/star.png" alt="" className="h-[14px] w-[14px]" />
-            <span className="text-[14px] font-bold text-[#ffc108]">{item.star}</span>
+            <span className="text-[14px] font-bold text-[#ffc108]">{!isNaN(item.totalStars / item.starNumber) &&
+                Math.round(item.totalStars / item.starNumber)}
+                </span>
           </div>
         </div>
         <hr className="h-[0] border-[0.5px] border-[solid] border-[#e4e4e4]" />

@@ -27,8 +27,8 @@ export const verifyJWT = asyncHandler(async (req, _, next) => {
 
         // Attach the user to the request object for further use in the request lifecycle
         req.user = user;
-        // req.userId = user._id;
-        // req.isSeller = user.isSeller;
+        //req.user.userId = user._id;
+        //req.isSeller = user.isSeller;
         next();
     } catch (error) {
         // Handle any errors during token verification and user fetching

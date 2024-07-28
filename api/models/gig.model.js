@@ -23,25 +23,34 @@ const GigSchema = new Schema(
       type: Number,
       default: 0,
     },
-    cat: {
+    category: {
       type: String,
+      enum: [
+          'Design',
+          'Video',
+          'Writing',
+          'AI',
+          'Marketing',
+          'Audio',
+          'Programming',
+          'Business',
+          'Lifestyle',
+          'Art',
+          'Other'
+      ],
       required: true,
     },
     price: {
       type: Number,
       required: true,
     },
-    cover: {
+    coverImage: {
       type: String,
       required: true,
     },
-    images: {
+    descMedia: {
       type: [String],
       required: false,
-    },
-    userId: {
-      type: String,
-      required: true,
     },
     shortTitle: {
       type: String,

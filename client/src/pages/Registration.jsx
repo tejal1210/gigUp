@@ -45,7 +45,7 @@ function Register() {
         },
       });
       if(res.data.data)
-      alert("Account Created");
+      //alert("Account Created");
       //console.log(res.data.data);
       //localStorage.setItem("currentUser", JSON.stringify(res.data.data));
       navigate("/login");

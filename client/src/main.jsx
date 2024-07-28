@@ -25,7 +25,7 @@ const router = createBrowserRouter(
         <Route path='messages' element={<Messages />} />
         <Route path='message/:id' element={<Message />} />
         <Route path='add' element={<Add />} />
-        <Route path='gig/:id' element={<Gig />} />
+        <Route path='gigs/single/:id' element={<Gig />} />
       </Route>
       <Route path='register' element={<Registration />} />
       <Route path='login' element={<Login />} />

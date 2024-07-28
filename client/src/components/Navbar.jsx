@@ -30,8 +30,8 @@ function Navbar() {
     //     isSeller: false
     // }
     const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-    console.log("current user")
-    console.log(currentUser);
+    //console.log("current user")
+    //console.log(currentUser);
     const navigate = useNavigate();
 
   const handleLogout = async () => {

@@ -29,12 +29,22 @@ app.use((req, res, next) => {
   });
 
 //routes import
-import authRouter from "./routes/auth.routes.js";
-//import userRouter from "./routes/user.routes.js"
+import userRoute from "./routes/user.routes.js";
+import gigRoute from "./routes/gig.routes.js";
+// import orderRoute from "./routes/order.routes.js";
+// import conversationRoute from "./routes/conversation.routes.js";
+// import messageRoute from "./routes/message.routes.js";
+import reviewRoute from "./routes/review.routes.js";
+import authRoute from "./routes/auth.routes.js";
 
 //routes declaration
-app.use("/api/auth", authRouter);
-//app.use("/api/v1/users", userRouter);
+app.use("/api/auth", authRoute);
+app.use("/api/users", userRoute);
+app.use("/api/gigs", gigRoute);
+// app.use("/api/orders", orderRoute);
+// app.use("/api/conversations", conversationRoute);
+// app.use("/api/messages", messageRoute);
+app.use("/api/reviews", reviewRoute);
 
 
 export default app;

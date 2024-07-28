@@ -1,6 +1,6 @@
 import asyncHandler from "../utils/asyncHandler.js";
 import ApiError from "../utils/ApiError.js";
-import { User } from "../models/user.model.js";
+import  {User}  from "../models/user.model.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import ApiResponse from "../utils/ApiResponse.js";
 import bcrypt from 'bcrypt';
@@ -27,7 +27,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
     // Validate required fields
     if ([username, email, country, password].some(field => field?.trim() === "")) {
-        throw new ApiError(400, "All fields are required");
+        throw new ApiError(400, "Please fill all required fields");
     }
 
     // Check if user already exists
