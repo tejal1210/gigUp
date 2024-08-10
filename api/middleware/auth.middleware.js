@@ -1,78 +1,35 @@
-import asyncHandler from "../utils/asyncHandler.js";
-import ApiError from "../utils/ApiError.js";
-import ApiResponse from "../utils/ApiResponse.js";
-import Order from "../models/order.model.js";
-import Gig from "../models/gig.model.js";
-import Stripe from "stripe";
+import JWT from 'jsonwebtoken';
+import asyncHandler from '../utils/asyncHandler.js';
+import ApiError from '../utils/ApiError.js';
+import { User } from '../models/user.model.js';
 
-const intent = asyncHandler(async (req, res) => {
-  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+// Middleware to verify JWT
+export const verifyJWT = asyncHandler(async (req, _, next) => {
+    try {
+        // Extract the access token from cookies or the Authorization header
+        const accessToken = req.cookies?.accessToken || req.header("Authorization")?.replace("Bearer ", "");
 
-  const gig = await Gig.findById(req.params.id);
-  if (!gig) {
-    throw new ApiError(404, "No gig found");
-  }
+        // If no access token is provided, throw an unauthorized error
+        if (!accessToken) {
+            throw new ApiError(401, "Unauthorized request");
+        }
 
-  const paymentIntent = await stripe.paymentIntents.create({
-    amount: gig.price * 100,
-    currency: "inr",
-    automatic_payment_methods: {
-      enabled: true,
-    },
-  });
+        // Verify the access token using the secret key
+        const decodedToken = JWT.verify(accessToken, process.env.ACCESS_TOKEN_SECRET);
 
-  if (!paymentIntent) {
-    throw new ApiError(500, "Failed to create payment intent");
-  }
+        // Find the user associated with the decoded token, excluding password and refreshToken fields
+        const user = await User.findById(decodedToken?._id).select(" -password -refreshToken");
 
-  const newOrder = new Order({
-    gigId: gig._id,
-    img: gig.cover,
-    title: gig.title,
-    buyerId: req.user._id,
-    sellerId: gig.userId,
-    price: gig.price,
-    payment_intent: paymentIntent.id,
-  });
+        // If no user is found, throw an invalid token error
+        if (!user) {
+            throw new ApiError(401, "Invalid access token");
+        }
 
-  const savedOrder = await newOrder.save();
-
-  if (!savedOrder) {
-    throw new ApiError(500, "Failed to save new order");
-  }
-
-  res.status(201).json(new ApiResponse(201, {
-    clientSecret: paymentIntent.client_secret,
-  }, "Payment successful"));
+        // Attach the user to the request object for further use in the request lifecycle
+        req.user = user;
+        next();
+    } catch (error) {
+        // Handle any errors during token verification and user fetching
+        throw new ApiError(401, error?.message || "Invalid access token");
+    }
 });
-
-const getOrders = asyncHandler(async (req, res) => {
-  const orders = await Order.find({
-    ...(req.user.isSeller ? { sellerId: req.user._id } : { buyerId: req.user._id }),
-    isCompleted: true,
-  });
-
-  res.status(200).json(new ApiResponse(200, orders, "Orders found"));
-});
-
-const confirm = asyncHandler(async (req, res) => {
-  const order = await Order.findOneAndUpdate(
-    {
-      payment_intent: req.body.payment_intent,
-    },
-    {
-      $set: {
-        isCompleted: true,
-      },
-    },
-    { new: true }
-  );
-
-  if (!order) {
-    throw new ApiError(404, "Order not found");
-  }
-
-  res.status(200).json(new ApiResponse(200, order, "Order is confirmed"));
-});
-
-export { intent, getOrders, confirm };
