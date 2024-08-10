@@ -7,7 +7,7 @@ const getUser = asyncHandler(async (req, res) => {
     const user = await User.findById(req.params.id);
     if(!user)
         throw new ApiError (401,  "User Does not Exist");
-    res.status(201).json(new ApiResponse(201, user, "User Found"));
+    res.status(200).json(new ApiResponse(201, user, "User Found"));
   });
 
 

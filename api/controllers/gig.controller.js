@@ -19,7 +19,7 @@ const createGig = asyncHandler(async (req, res) => {
     // Check for cover image
     const coverImgLocalPath = req.files?.coverImage?.[0]?.path;
     if (!coverImgLocalPath) {
-        throw new ApiError(401, "Cover Image is required");
+        throw new ApiError(400, "Cover Image is required");
     }
 
     // Upload cover image to Cloudinary
@@ -34,7 +34,7 @@ const createGig = asyncHandler(async (req, res) => {
     for (const file of mediaPaths) {
         const result = await uploadOnCloudinary(file.path);
         if (!result) {
-            throw new ApiError(501, "Failed to upload one of the additional images");
+            throw new ApiError(500, "Failed to upload one of the additional images");
         }
         uploadedMedia.push(result.url);
     }
@@ -78,20 +78,20 @@ const deleteGig = asyncHandler(async (req, res) => {
       await Gig.findByIdAndDelete(req.params.id);
       res.status(201).json(new ApiResponse(201,"Gig has been deleted!"));
     } catch (err) {
-        throw new ApiError(500, err);
+        throw new ApiError(500, err.message);
     }
   });
-  const getGig = async (req, res, next) => {
+  const getGig = asyncHandler(async (req, res) => {
     try {
       const gig = await Gig.findById(req.params.id);
       if (!gig) 
         throw new ApiError(404, "Gig not found!");
-      res.status(201).json(new ApiResponse(201, gig, "Gig Found"));
+      res.status(200).json(new ApiResponse(201, gig, "Gig Found"));
     } catch (err) {
-        throw new ApiError(500, err);
+        throw new ApiError(500, err.message);
     }
-  };
-  const getGigs = async (req, res, next) => {
+  });
+  const getGigs = asyncHandler(async (req, res) => {
     const q = req.query;
     // const filters = {
     //     ...(q.search && { title: { $regex: q.search, $options: "i" } }),
@@ -110,11 +110,11 @@ const deleteGig = asyncHandler(async (req, res) => {
     console.log("Filters:", filters);
     try {
       const gigs = await Gig.find(filters).sort({ [q.sort]: -1 });
-      res.status(201).json(new ApiResponse(201, gigs, "Gigs Found"));
+      res.status(200).json(new ApiResponse(201, gigs, "Gigs Found"));
     } catch (err) {
-        throw new ApiError(500, err);
+        throw new ApiError(500, err.message);
     }
-  };
+  });
 export { 
     createGig,
     deleteGig,

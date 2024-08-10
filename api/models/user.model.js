@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken"
 import bcrypt from "bcrypt"
 const { Schema } = mongoose;
 
-const userSchema = new Schema({
+const UserSchema = new Schema({
   username: {
     type: String,
     required: true,
@@ -72,4 +72,4 @@ userSchema.methods = {
       )
   },
 }
-export const User = mongoose.model('User', userSchema)
+export default mongoose.model('User', UserSchema)

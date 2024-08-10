@@ -1,6 +1,12 @@
 import React from 'react'
 
 function Featured() {
+  const [input, setInput] = useState("");
+  const navigate = useNavigate();
+
+  const handleSubmit = () => {
+    navigate(`/gigs?search=${input}`);
+  };
   return (
     <div className="featured h-full flex justify-center bg-[#013914] text-white">
       <div className="container w-full flex items-center px-10 gap-8">
@@ -15,9 +21,12 @@ function Featured() {
                         type="text"
                         placeholder='Try "building mobile app"'
                         className="border-none outline-none placeholder-gray-500 font-[Roboto]"
+                        onChange={(e) => setInput(e.target.value)}
                     />
                 </div>
-                <button className="w-30 h-12 border-none bg-[#1dbf73] text-white self-end cursor-pointer px-7 font-[Roboto] font-medium">
+                <button 
+                  className="w-30 h-12 border-none bg-[#1dbf73] text-white self-end cursor-pointer px-7 font-[Roboto] font-medium"
+                  onClick={handleSubmit}>
                 Search
                 </button>
             </div>

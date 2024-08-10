@@ -31,9 +31,9 @@ app.use((req, res, next) => {
 //routes import
 import userRoute from "./routes/user.routes.js";
 import gigRoute from "./routes/gig.routes.js";
-// import orderRoute from "./routes/order.routes.js";
-// import conversationRoute from "./routes/conversation.routes.js";
-// import messageRoute from "./routes/message.routes.js";
+import orderRoute from "./routes/order.routes.js";
+import conversationRoute from "./routes/conversation.routes.js";
+import messageRoute from "./routes/message.routes.js";
 import reviewRoute from "./routes/review.routes.js";
 import authRoute from "./routes/auth.routes.js";
 
@@ -41,9 +41,9 @@ import authRoute from "./routes/auth.routes.js";
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
 app.use("/api/gigs", gigRoute);
-// app.use("/api/orders", orderRoute);
-// app.use("/api/conversations", conversationRoute);
-// app.use("/api/messages", messageRoute);
+app.use("/api/orders", orderRoute);
+app.use("/api/conversations", conversationRoute);
+app.use("/api/messages", messageRoute);
 app.use("/api/reviews", reviewRoute);
 
 

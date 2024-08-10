@@ -95,31 +95,31 @@ function Navbar() {
             <>
                 <hr className="w-full h-[0] border-t-[0.5px_solid_#ebe9e9] border-b-[0.5px_solid_#ebe9e9]"/>
                 <div className="menu w-full max-w-[1400px] mx-auto py-2 flex justify-between text-gray-500 font-[Roboto] font-light px-6 lg:px-8 ">
-                <Link className="link menuLink" to="/">
+                <Link className="link menuLink" to="/gigs?category=Design">
                     Graphics & Design
                     </Link>
-                    <Link className="link menuLink" to="/">
+                    <Link className="link menuLink" to="/gigs?category=Video">
                     Video & Animation
                     </Link>
-                    <Link className="link menuLink" to="/">
+                    <Link className="link menuLink" to="/gigs?category=Writing">
                     Writing & Translation
                     </Link>
-                    <Link className="link menuLink" to="/">
+                    <Link className="link menuLink" to="/gigs?category=AI">
                     AI Services
                     </Link>
-                    <Link className="link menuLink" to="/">
+                    <Link className="link menuLink" to="/gigs?category=Marketing">
                     Digital Marketing
                     </Link>
-                    <Link className="link menuLink" to="/">
+                    <Link className="link menuLink" to="/gigs?category=Audio">
                     Music & Audio
                     </Link>
-                    <Link className="link menuLink" to="/">
+                    <Link className="link menuLink" to="/gigs?category=Programming">
                     Programming & Tech
                     </Link>
-                    <Link className="link menuLink" to="/">
+                    <Link className="link menuLink" to="/gigs?category=Business">
                     Business
                     </Link>
-                    <Link className="link menuLink" to="/">
+                    <Link className="link menuLink" to="/gigs?category=Lifestyle">
                     Lifestyle
                     </Link>
                 </div>
