@@ -16,14 +16,16 @@ const CheckoutForm = () => {
 
   useEffect(() => {
     if (!stripe) {
+      console.log("stripe not available")
       return;
     }
 
     const clientSecret = new URLSearchParams(window.location.search).get(
-      "payment_intent_client_secret"
+      "pk_test_51PkW2uKWal1WXBfGxHIpLo0e5OnHBWnjExO84vnantMTRhi5n4gHWJnLrwMYyKW2s4f4E0H1PO5ryeApsaKawGy400Zc6YkhR9"
     );
 
     if (!clientSecret) {
+      console.log("client secret not available")
       return;
     }
 
@@ -83,13 +85,13 @@ const CheckoutForm = () => {
   };
 
   return (
-    <form id="payment-form" onSubmit={handleSubmit}>
+    <form id="payment-form" onSubmit={handleSubmit} className="w-2/5 h-2/5 mx-3 px-[50px] py-[50px]  gap-[20px] shadow-lg items-center justify-center flex flex-col">
       <LinkAuthenticationElement
         id="link-authentication-element"
         onChange={(e) => setEmail(e.target.value)}
       />
       <PaymentElement id="payment-element" options={paymentElementOptions} />
-      <button disabled={isLoading || !stripe || !elements} id="submit">
+      <button disabled={isLoading || !stripe || !elements} id="submit" className=" w-2/3 border-[none] p-[20px] text-[white] font-medium text-[18px] bg-[#1dbf73] cursor-pointer rounded">
         <span id="button-text">
           {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}
         </span>

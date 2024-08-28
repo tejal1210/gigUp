@@ -7,13 +7,13 @@ import Conversation from "../models/conversation.model.js";
 const createMessage = asyncHandler(async (req, res) => {
   const newMessage = new Message({
     conversationId: req.body.conversationId,
-    userId: req.userId,
+    userId: req.user._id,
     desc: req.body.desc,
   });
 
    const savedMessage = await newMessage.save();
   if (!savedMessage) {
-    return next(new ApiError(500, "Failed to save new message"));
+    throw new ApiError(500, "Failed to save new message");
   }
 
   const updatedConversation = await Conversation.findOneAndUpdate(
@@ -29,7 +29,7 @@ const createMessage = asyncHandler(async (req, res) => {
   );
 
   if (!updatedConversation) {
-    return next(new ApiError(500, "Failed to update conversation"));
+    throw new ApiError(500, "Failed to update conversation");
   }
 
   res.status(201).json(new ApiResponse(201, savedMessage, "Message created successfully"));

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import newRequest from "../../utils/newRequest";
+import newRequest from "../utils/newRequest";
 
 const Success = () => {
   const { search } = useLocation();
@@ -16,7 +16,7 @@ const Success = () => {
           navigate("/orders");
         }, 5000);
       } catch (err) {
-        console.log(err);
+        console.log(err.response ? err.response.data : err.message);
       }
     };
 

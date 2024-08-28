@@ -17,11 +17,11 @@ const createConversation = asyncHandler(async (req, res) => {
     if (!savedConversation) {
      throw new ApiError(500, "Failed to save new conversation");
     }
-  
+    console.log((savedConversation))
     res.status(201).json(new ApiResponse(201, savedConversation, "Conversation created successfully"));
   });
 
-  const updateConversation = asyncHandler(async (req, res, next) => {
+  const updateConversation = asyncHandler(async (req, res) => {
     const updateFields = req.user.isSeller ? { readBySeller: true } : { readByBuyer: true };
   
     const updatedConversation = await Conversation.findOneAndUpdate(
@@ -40,17 +40,17 @@ const createConversation = asyncHandler(async (req, res) => {
 const getSingleConversation = async (req, res, next) => {
   
     const conversation = await Conversation.findOne({ id: req.params.id });
-
-    if (!conversation) 
-        throw new ApiError(404, "Conversation not found");
+    console.log(conversation)
+    // if (!conversation) 
+    //     throw new ApiError(404, "Conversation not found");
 
     res.status(200).json(new ApiResponse(201, conversation, "Conversation Found"));
   
 };
 
-const getConversations = async (req, res, next) => {
+const getConversations = asyncHandler(async (req, res) => {
     const conversations = await Conversation.find(
-      req.isSeller ? { sellerId: req.userId } : { buyerId: req.userId }
+      req.user.isSeller ? { sellerId: req.user._id } : { buyerId: req.user._id }
     ).sort({ updatedAt: -1 });
 
     if (!conversations) 
@@ -58,7 +58,7 @@ const getConversations = async (req, res, next) => {
 
     res.status(200).json(new ApiResponse(201, conversations, "Conversations Found"));
   
-};
+});
 
 export {
     getConversations,

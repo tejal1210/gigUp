@@ -5,7 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { SampleNextArrow, SamplePrevArrow } from "../components/Slide/Slide2";
 import { Link, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import newRequest from "../../utils/newRequest";
+import newRequest from "../utils/newRequest";
 import Reviews from "../components/Reviews";
 
 function Gig() {

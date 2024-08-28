@@ -90,7 +90,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import GigCard from '../components/GigCard';
 import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "react-router-dom";
-import newRequest from '../../utils/newRequest'; // Ensure newRequest is imported
+import newRequest from '../utils/newRequest'; 
 
 function Gigs() {
   const [open, setOpen] = useState(false);
@@ -109,6 +109,7 @@ function Gigs() {
           `/gigs${search}&min=${minRef.current.value || 0}&max=${maxRef.current.value || 10000}&sort=${sort}`
         )
         .then((res) => {
+          console.log(res.data)
           return res.data;
         }),
   });

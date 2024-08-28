@@ -221,19 +221,20 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import { Link, useParams } from "react-router-dom";
-import newRequest from "../../utils/newRequest";
+import newRequest from "../utils/newRequest";
 
 const Message = () => {
   const { id } = useParams();
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-
+  console.log(currentUser)
   const queryClient = useQueryClient();
 
   const { isLoading, error, data } = useQuery({
     queryKey: ["messages"],
     queryFn: () =>
       newRequest.get(`/messages/${id}`).then((res) => {
-        return res.data;
+        console.log(res)
+        return res.data.data;
       }),
   });
 
@@ -255,33 +256,63 @@ const Message = () => {
     e.target[0].value = "";
   };
 
+
   return (
-    <div className="message">
-      <div className="container">
-        <span className="breadcrumbs">
-          <Link to="/messages">Messages</Link> &gt; John Doe &gt;
+    <div className="message flex justify-center font-[Roboto]">
+      <div className="container w-11/12 m-12">
+        <span className="breadcrumbs font-light text-md text-[#555]">
+          <Link to="/messages">Messages</Link> &gt; ;
         </span>
         {isLoading ? (
           "loading"
         ) : error ? (
           "error"
         ) : (
-          <div className="messages">
+          <div className="messages mx-0 my-[30px] p-[50px] flex flex-col gap-[20px] h-[500px] overflow-scroll">
             {data.map((m) => (
-              <div className={m.userId === currentUser._id ? "owner item" : "item"} key={m._id}>
+              <div
+                className={
+                  m.userId == currentUser.user._id
+                    ? "item owner flex-row-reverse self-end flex gap-[20px] max-w-[600px] text-sm"
+                    : "item flex gap-[20px] max-w-[600px] text-sm"
+                }
+                key={m._id}
+              >
                 <img
-                  src="https://images.pexels.com/photos/270408/pexels-photo-270408.jpeg?auto=compress&cs=tinysrgb&w=1600"
+                  className="w-[40px] h-[40px] rounded-[50%] object-cover"
+                  src={
+                    m.userId == currentUser.user._id
+                      ? currentUser.user.img
+                      : "../../public/img/noavatar.jpg"
+                  }
                   alt=""
                 />
-                <p>{m.desc}</p>
+                <p
+                  className={
+                    m.userId == currentUser.user._id
+                      ? "max-w-[500px] rounded-tl-[20px] rounded-br-[20px] rounded-tr-none rounded-bl-[20px] bg-[royalblue] text-[white] p-[20px] font-light"
+                      : "max-w-[500px] p-[20px] bg-[#f4f1f1] rounded-tl-none rounded-br-[20px] rounded-tr-[20px] rounded-bl-[20px] text-[gray] font-light"
+                  }
+                >
+                  {m.desc}
+                </p>
               </div>
             ))}
           </div>
         )}
-        <hr />
-        <form className="write" onSubmit={handleSubmit}>
-          <textarea type="text" placeholder="write a message" />
-          <button type="submit">Send</button>
+        <hr className="h-[0] border-[0.5px] border-[solid] border-[#e8e6e6] mb-[20px]" />
+        <form className="write flex items-center justify-between" onSubmit={handleSubmit}>
+          <textarea
+            type="text"
+            placeholder="write a message"
+            className="w-[90%] h-[100px] p-[10px] border-[1px] border-[solid] border-[lightgray] rounded-[10px] placeholder-sm"
+          />
+          <button
+            type="submit"
+            className="bg-[#1dbf73] p-3 text-[white] font-medium border-[none] rounded-[10px] cursor-pointer w-[75px]"
+          >
+            Send
+          </button>
         </form>
       </div>
     </div>

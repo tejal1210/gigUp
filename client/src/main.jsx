@@ -13,6 +13,8 @@ import Add from './pages/Add';
 import Gig from './pages/Gig';
 import Registration from './pages/Registration';
 import Login from './pages/Login';
+import Pay from './pages/Pay.jsx'
+import Success from './pages/Success.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -26,6 +28,8 @@ const router = createBrowserRouter(
         <Route path='message/:id' element={<Message />} />
         <Route path='add' element={<Add />} />
         <Route path='gigs/single/:id' element={<Gig />} />
+        <Route path='pay/:id' element={<Pay />} />
+        <Route path='success' element={<Success/>} />
       </Route>
       <Route path='register' element={<Registration />} />
       <Route path='login' element={<Login />} />

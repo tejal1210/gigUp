@@ -8,7 +8,7 @@ const router = express.Router();
 
 // router.post("/:gigId", verifyToken, createOrder);
 router.route("/").get(verifyJWT, getOrders);
-router.route("/payment/:id").post(verifyJWT, intent);
-router.route("/").post(verifyJWT, confirm);
+router.route("/create-payment-intent/:id").post(verifyJWT, intent);
+router.route("/").put(verifyJWT, confirm);
 
 export default router;

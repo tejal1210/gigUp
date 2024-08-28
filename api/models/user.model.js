@@ -42,7 +42,7 @@ const UserSchema = new Schema({
   timestamps:true
 });
 
-userSchema.methods = {
+UserSchema.methods = {
   comparePassword: async function(plainTextPassword) {
       return await bcrypt.compare(plainTextPassword, this.password)
   },
@@ -72,4 +72,4 @@ userSchema.methods = {
       )
   },
 }
-export default mongoose.model('User', UserSchema)
+export default mongoose.model("User", UserSchema)

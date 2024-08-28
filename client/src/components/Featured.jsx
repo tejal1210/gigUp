@@ -1,4 +1,6 @@
 import React from 'react'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 function Featured() {
   const [input, setInput] = useState("");
@@ -20,7 +22,7 @@ function Featured() {
                     <input
                         type="text"
                         placeholder='Try "building mobile app"'
-                        className="border-none outline-none placeholder-gray-500 font-[Roboto]"
+                        className="text-gray-500 border-none outline-none placeholder-gray-500 font-[Roboto]"
                         onChange={(e) => setInput(e.target.value)}
                     />
                 </div>
