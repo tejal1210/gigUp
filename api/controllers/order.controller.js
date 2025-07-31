@@ -27,7 +27,7 @@ const intent = asyncHandler(async (req, res) => {
 
   const newOrder = new Order({
     gigId: gig._id,
-    img: gig.cover,
+    img: gig.coverImage,
     title: gig.title,
     buyerId: req.user._id,
     sellerId: gig.userId,

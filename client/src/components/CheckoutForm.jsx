@@ -21,7 +21,7 @@ const CheckoutForm = () => {
     }
 
     const clientSecret = new URLSearchParams(window.location.search).get(
-      "pk_test_51PkW2uKWal1WXBfGxHIpLo0e5OnHBWnjExO84vnantMTRhi5n4gHWJnLrwMYyKW2s4f4E0H1PO5ryeApsaKawGy400Zc6YkhR9"
+      "payment_intent_client_secret"
     );
 
     if (!clientSecret) {

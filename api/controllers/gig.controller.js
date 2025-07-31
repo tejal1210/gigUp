@@ -56,7 +56,7 @@ const createGig = asyncHandler(async (req, res) => {
     });
 
     // Fetch created gig
-    const createdGig = await Gig.findById(gig._id).select("-password -refreshToken");
+    const createdGig = await Gig.findById(gig._id);
 
     if (!createdGig) {
         throw new ApiError(500, "Gig creation failed, please try again");
